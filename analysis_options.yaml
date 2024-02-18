@@ -1,0 +1,126 @@
+analyzer:
+  errors:
+    unused_local_variable: error
+    missing_return: error
+    missing_required_param: error
+    missing_required_param_with_details: error
+    override_on_non_overriding_method: error
+    type_check_is_not_null: error
+    implicit_dynamic_type: error
+    invalid_assignment: error
+    invalid_null_aware_operator: error
+    invalid_use_of_protected_member: error
+    sdk_version_as_expression_in_const_context: error
+    unused_import: error
+    unnecessary_cast: error
+    unnecessary_null_comparison: error
+    unrelated_type_equality_checks: error
+    unnecessary_type_check: error
+    unnecessary_string_interpolations: error
+    prefer_is_empty: error
+    prefer_single_quotes: error
+    always_require_non_null_named_parameters: error
+    prefer_asserts_in_initializer_lists: error
+    prefer_const_constructors_in_immutables: error
+    avoid_redundant_argument_values: error
+    prefer_adjacent_string_concatenation: error
+    sort_child_properties_last: error
+    prefer_const_constructors: error
+    avoid_positional_boolean_parameters: error
+    prefer_null_aware_operators: error
+    prefer_spread_collections: error
+    avoid_catches_without_on_clauses: error
+    avoid_equals_and_hash_code_on_mutable_classes: error
+    avoid_function_literals_in_foreach_calls: error
+    avoid_relative_lib_imports: error
+    avoid_returning_null_for_future: error
+    avoid_types_as_parameter_names: error
+    avoid_unnecessary_containers: error
+    avoid_unused_constructor_parameters: error
+    avoid_void_async: error
+    avoid_web_libraries_in_flutter: error
+    await_only_futures: error
+    prefer_inlined_adds: error
+    prefer_inlined_calls: error
+    prefer_iterable_whereType: error
+    prefer_relative_imports: error
+    use_function_type_syntax_for_parameters: error
+    avoid_unnecessary_new: error
+    implicit_dynamic_list_literals: error
+    prefer_const_literals_to_create_immutables: error
+    avoid_setters_without_getters: error
+    avoid_annotating_with_dynamic: error
+    avoid_empty_else: error
+    avoid_equals_and_hash_code: error
+    avoid_null_checks_in_equality_operators: error
+    avoid_positional_boolean_parameters_in_long_lists: error
+    avoid_private_typedef_functions: error
+    avoid_redundant_argument_values_in_literal_maps: error
+    avoid_redundant_null_checks: error
+    avoid_returning_null: error
+    avoid_return_types_on_setters: error
+    avoid_single_cascade_in_expression_statements: error
+    avoid_types_on_closure_parameters: error
+    avoid_unused_constructor_parameters_in_hierarchy: error
+    avoid_void_async_future: error
+    always_declare_return_types: error
+    camel_case_extensions: error
+    constant_identifier_names: error
+    lines_longer_than_80_chars: error
+    library_names: error
+    package_api_docs: error
+    slash_for_doc_comments: error
+    sort_pub_dependencies: error
+
+linter:
+  rules:
+    avoid_empty_else: true
+    avoid_function_literals_in_foreach_calls: true
+    avoid_shadowing_type_parameters: true
+    avoid_types_as_parameter_names: true
+    avoid_types_on_closure_parameters: true
+    avoid_void_async: true
+    camel_case_extensions: true
+    cancel_subscriptions: true
+    close_sinks: true
+    empty_catches: true
+    empty_constructor_bodies: true
+    hash_and_equals: true
+    implementation_imports: true
+    iterable_contains_unrelated_type: true
+    no_adjacent_strings_in_list: true
+    no_duplicate_case_values: true
+    null_closures: true
+    prefer_generic_function_type_aliases: true
+    prefer_if_null_operators: true
+    prefer_inlined_adds: true
+    prefer_inlined_calls: true
+    prefer_mixin: true
+    prefer_null_aware_operators: true
+    prefer_relative_imports: true
+    prefer_single_quotes: true
+    public_member_api_docs: true
+    slash_for_doc_comments: true
+    sort_constructors_first: true
+    sort_unnamed_constructors_first: true
+    test_types_in_equals: true
+    unnecessary_await_in_return: true
+    unnecessary_const: true
+    unnecessary_getters_setters: true
+    unnecessary_lambdas: true
+    unnecessary_null_in_if_null_operators: true
+    unnecessary_overrides: true
+    unnecessary_parenthesis: true
+    unnecessary_statements: true
+    unnecessary_this: true
+    unrelated_type_equality_checks: true
+
+pedantic:
+  rules:
+    avoid_classes_with_only_static_members: false
+    avoid_print: false
+
+getx:
+  rules:
+    unnecessary_getx: true
+    unused_getx: true
