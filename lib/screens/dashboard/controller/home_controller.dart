@@ -41,7 +41,7 @@ class HomeController extends CommonController {
     // This will be implemented when we have section keys
   }
 
-  // ✅ Add scroll function
+  // Add scroll function
   void scrollToSection(GlobalKey key) {
     final context = key.currentContext;
     if (context != null) {
