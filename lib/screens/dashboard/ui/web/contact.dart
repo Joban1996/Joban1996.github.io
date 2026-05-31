@@ -1,151 +1,120 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import '../../controller/home_controller.dart';
-import '../../widgets/SectioinTitleWidget.dart';
-import '../../widgets/textFieldView.dart';
 
-
-
-///Contact UI class
 class Contact extends StatelessWidget {
-  ///Contact UI class constructor
-  Contact({Key? key}) : super(key: key);
-
-
-  HomeController _homeController = Get.find();
+  const Contact({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(height: Get.height*0.1,),
-        SectionTitleWidget(title: 'CONTACT',isWeb: true,),
-        Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys '
-            'standard dummy text ever since the 1500s, when an unknown printer too'
-            'k a galley of type and scrambled it to make a type specimen book'.tr,
-          style: Get.textTheme.bodySmall!.copyWith(fontSize: 12),textAlign: TextAlign.center,).
-        paddingOnly(top: Get.height*0.06,bottom: Get.height*0.06,right: Get.width*0.2,left: Get.width*0.2),
-        SizedBox(
-            height: 70,
-            width: 130,
-            child: Image.asset('assets/icons/separator.png').paddingOnly(bottom: Get.height*0.06)),
-        TextFieldView(appTextField: TextField(
-          style: Get.textTheme.bodySmall!.copyWith(fontSize: 13,color: Get.theme.colorScheme.surface),
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(15),
-            hintText: 'ENTER YOUR NAME',
-            hintStyle: Get.textTheme.bodySmall!.copyWith(fontSize: 13,color: Get.theme.colorScheme.surface),
-            border: InputBorder.none,
-            focusedBorder: InputBorder.none,
-          ),
-        )).paddingOnly(bottom: Get.height*0.06,right: 16,left: 16),
-        TextFieldView(appTextField: TextField(
-          style: Get.textTheme.bodySmall!.copyWith(fontSize: 13,color: Get.theme.colorScheme.surface),
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(15),
-            hintText: 'ENTER YOUR EMAIL',
-            hintStyle: Get.textTheme.bodySmall!.copyWith(fontSize: 13,color: Get.theme.colorScheme.surface),
-            border: InputBorder.none,
-            focusedBorder: InputBorder.none,
-          ),
-        )).paddingOnly(bottom: Get.height*0.06,right: 16,left: 16),
-        TextFieldView(appTextField: TextField(
-          style: Get.textTheme.bodySmall!.copyWith(fontSize: 13,color: Get.theme.colorScheme.surface),
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(15),
-            hintText: 'PHONE NUMBER',
-            hintStyle: Get.textTheme.bodySmall!.copyWith(fontSize: 13,color: Get.theme.colorScheme.surface),
-            border: InputBorder.none,
-            focusedBorder: InputBorder.none,
-          ),
-        )).paddingOnly(bottom: Get.height*0.06,right: 16,left: 16),
-        TextFieldView(
-            isHeight: false,
-            appTextField: TextField(
-              maxLines: 4,
-          style: Get.textTheme.bodySmall!.copyWith(fontSize: 13,color: Get.theme.colorScheme.surface),
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(15),
-            hintText: 'YOUR MESSAGE',
-            hintStyle: Get.textTheme.bodySmall!.copyWith(fontSize: 13,color: Get.theme.colorScheme.surface),
-            border: InputBorder.none,
-            focusedBorder: InputBorder.none,
-          ),
-        )).paddingOnly(right: 16,left: 16),
-        submit().paddingOnly(top: Get.height*0.1,bottom: Get.height*0.1),
-        Container(
-          width: Get.width,
-          height: 150,
-          decoration: BoxDecoration(color: Colors.black),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-             backToTopWidget(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  svgCommon('assets/icons/facebook.svg'),
-                  svgCommon('assets/icons/linkedIn_bottom.svg'),
-                  svgCommon('assets/icons/instagram.svg'),
-                  svgCommon('assets/icons/email.svg'),
-                ],
-              ),
-              RichText(text: TextSpan(
-                children: [
-                  TextSpan(text: '@2024 Jobandeep Singh ',
-                      style: Get.textTheme.bodyMedium!.copyWith(fontSize: 13,color: Get.theme.colorScheme.onPrimary)),
-                  TextSpan(text: 'All Rights Reserved.',style: Get.textTheme.bodyMedium!.copyWith(fontSize: 13,color: Get.theme.colorScheme.onPrimary
-                  ,fontWeight: FontWeight.w300))
-                ]
-              ))
-            ],
-          ).paddingAll(8),
-        ),
-      ],
-    );
-  }
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 800;
 
-  Widget backToTopWidget(){
-    return InkWell(
-      onTap: (){
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (_homeController.myListController.hasClients) {
-            _homeController.myListController.animateTo(0.0,duration: Duration(milliseconds: 500),
-              curve: Curves.fastOutSlowIn,);
-          }
-        });
-      },
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: isMobile ? 20 : 80,
+        vertical: 60,
+      ),
+      color: Colors.blue.shade900,
       child: Column(
         children: [
-          Icon(Icons.arrow_upward_rounded,color: Get.theme.colorScheme.onPrimary,),
-          Text('BACK TO TOP',style: Get.textTheme.bodyMedium!.copyWith(fontSize: 13,color: Get.theme.colorScheme.onPrimary),),
+          Text(
+            'Get In Touch',
+            style: Theme.of(context).textTheme.displayMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 20),
+          Container(
+            width: 60,
+            height: 3,
+            color: Colors.white,
+          ),
+          const SizedBox(height: 40),
+          Text(
+            'I\'m currently looking for new opportunities. Whether you have a question or just want to say hi, I\'ll get back to you!',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.white.withOpacity(0.8),
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 40),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _contactCard(
+                context,
+                Icons.email_outlined,
+                'Email',
+                'jobanmatharoo39@gmail.com',
+                'mailto:jobanmatharoo39@gmail.com',
+              ),
+              if (!isMobile) const SizedBox(width: 30),
+              _contactCard(
+                context,
+                Icons.phone_outlined,
+                'Phone',
+                '+91 9041247534',
+                'tel:+919041247534',
+              ),
+              if (!isMobile) const SizedBox(width: 30),
+              _contactCard(
+                context,
+                Icons.location_on_outlined,
+                'Location',
+                'Mohali, Punjab',
+                '',
+              ),
+            ],
+          ),
+          const SizedBox(height: 50),
+          const Divider(color: Colors.white24),
+          const SizedBox(height: 20),
+          Text(
+            '© 2026 Jobandeep Singh. All rights reserved.',
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.white.withOpacity(0.6),
+            ),
+          ),
         ],
       ),
     );
   }
-  ///Svg common widget
-  Widget svgCommon(String img){
-    return SizedBox(
-        height: 35,width: 35,
-        child: SvgPicture.asset(img).paddingOnly(right: Get.width*0.01));
-  }
 
-  Widget submit(){
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          alignment: Alignment.center,
-          height: 25,
-          child:
-          Text('SUBMIT'.tr,style: Get.textTheme.bodySmall!.copyWith(fontSize: 15,fontWeight: FontWeight.w500),).paddingOnly(left: 16,right: 16),
-          decoration: BoxDecoration(
-              color: Get.theme.colorScheme.primary,
-              border: Border(left: BorderSide(color: Get.theme.primaryColorDark,width: 2),
-                  right:  BorderSide(color: Get.theme.primaryColorDark,width: 2))),
+  Widget _contactCard(BuildContext context, IconData icon, String title, String value, String link) {
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: Colors.white.withOpacity(0.2)),
         ),
-      ],
+        child: Column(
+          children: [
+            Icon(icon, size: 40, color: Colors.white),
+            const SizedBox(height: 12),
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              value,
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.white.withOpacity(0.8),
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

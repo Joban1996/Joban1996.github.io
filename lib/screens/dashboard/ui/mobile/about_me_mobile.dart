@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../main.dart';
 import '../../widgets/SectioinTitleWidget.dart';
 import '../../widgets/explore_view.dart';
 
@@ -7,11 +8,12 @@ import '../../widgets/explore_view.dart';
 ///About me part of dashboard screen
 class AboutMeMobile extends StatelessWidget {
   ///Class constructor
-  const AboutMeMobile({Key? key}) : super(key: key);
+   AboutMeMobile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: aboutSectionKey,
       color: Get.theme.colorScheme.primary,
       child: Column(
         children: [

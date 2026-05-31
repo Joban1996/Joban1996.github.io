@@ -1,5 +1,5 @@
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:top_modal_sheet/top_modal_sheet.dart';
@@ -18,11 +18,9 @@ class HomeScreenMobile extends StatelessWidget {
    HomeScreenMobile({Key? key}) : super(key: key);
 
   HomeController _homeController = Get.find();
+
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-    ));
     return SingleChildScrollView(
       controller: _homeController.myListController,
       child: Container(
@@ -45,8 +43,7 @@ class HomeScreenMobile extends StatelessWidget {
                           InkWell(
                               onTap: ()async{
                                 await showTopModalSheet<String?>(
-
-                                    context, MenuItemsMobile());
+                                    context, MenuItemsMobile(),backgroundColor: Colors.transparent);
                               },
                               child: Icon(Icons.menu,color: Get.theme.colorScheme.primary,size: 40,))
                         ],
@@ -101,7 +98,7 @@ class HomeScreenMobile extends StatelessWidget {
               decoration: BoxDecoration(color: Colors.black),
             ),
             AboutMeMobile(),
-            Skills(isWeb: false,),
+            Skills(isWeb: false),
             Portfolio(),
             Contact()
           ],
@@ -121,4 +118,5 @@ class HomeScreenMobile extends StatelessWidget {
        ),
      ).paddingOnly(bottom: Get.height*0.03);
    }
+
 }

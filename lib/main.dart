@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -8,11 +10,32 @@ import 'theme/route/app_routes.dart';
 import 'theme/route/route_names.dart';
 import 'theme/theme.dart';
 
+///key for first widget
+var aboutSectionKey = GlobalKey();
+///key for second widget
+var skillSectionKey = GlobalKey();
+///key for third widget
+var portfolioSectionKey = GlobalKey();
+///key for fourth widget
+var contactSectionKey = GlobalKey();
+
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
+  if(kIsWeb){
+   await Firebase.initializeApp(
+     options: FirebaseOptions(apiKey: 'AIzaSyDuZtCFJMMTo5atnNGI28Eh3wlBbg4dht8',
+         appId: '1:328333044463:web:5cb400c9e278d440bf491a',
+         messagingSenderId: '328333044463',
+         projectId: 'portfolioweb-3a95a',
+         storageBucket: 'portfolioweb-3a95a.appspot.com'),
+   );
+  }else{
+      Firebase.initializeApp();
+  }
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-
+  await Future.delayed(Duration.zero);
   runApp(const MyApp());
 }
 

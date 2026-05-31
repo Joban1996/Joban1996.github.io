@@ -6,6 +6,7 @@ class AppTheme {
   static double iconSize = 20;
 
   static ThemeData lightTheme = ThemeData(
+    useMaterial3: true,
       textTheme: TextTheme(
         displayLarge: TextStyle(
             fontSize: FontSizes.displayL,
@@ -74,7 +75,7 @@ class AppTheme {
       primaryColorLight: const Color(0xFF29C770),
       shadowColor: const Color(0xFFC4C4C4),
       //iconTheme: const IconThemeData(color: Color(0xff37A1F9)),
-      bottomAppBarTheme: const BottomAppBarTheme(
+      bottomAppBarTheme: const BottomAppBarThemeData(
         color: Color(0xFFFFFFFF),
       ),
       //cardColor: const Color(0xffffffff),

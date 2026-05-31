@@ -1,111 +1,170 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controller/home_controller.dart';
-import '../../widgets/SectioinTitleWidget.dart';
 
-
-///About me part of dashboard screen
 class Skills extends StatelessWidget {
-  ///Class constructor
-  Skills({Key? key,required this.isWeb}) : super(key: key);
-  bool isWeb = true;
-
-  final HomeController _homeController = Get.find();
+  final bool isWeb;
+  const Skills({Key? key, required this.isWeb}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<HomeController>();
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    // Responsive values
+    double horizontalPadding = screenWidth < 600 ? 20 : (screenWidth < 1000 ? 60 : 100);
+    double itemWidth = screenWidth < 600 ? 100 : (screenWidth < 1000 ? 110 : 120);
+
     return Container(
-      color: Get.theme.colorScheme.primary,
       width: double.infinity,
+      color: Colors.grey.shade50,
+      padding: EdgeInsets.symmetric(vertical: 60),
       child: Column(
         children: [
-          SectionTitleWidget(title: 'SKILLS',isWeb: isWeb,textSize: isWeb ? 30 : 15,),
-          SizedBox(height: Get.height*0.1,),
-          skillsUI('USING NOW:'),
-          SizedBox(height: Get.height*0.1,),
-          skillsUI('LEARNING:'),
-          SizedBox(height: Get.height*0.1,),
-          skillsUI('OTHER SKILLS:'),
-          SizedBox(height: Get.height*0.1,),
+          // Title
+          Text(
+            'Skills & Technologies',
+            style: Theme.of(context).textTheme.displayMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 20),
+          Container(
+            width: 60,
+            height: 3,
+            color: Colors.blue,
+          ),
+          const SizedBox(height: 50),
+          // Skills Grid
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+            child: Wrap(
+              spacing: 20,
+              runSpacing: 20,
+              alignment: WrapAlignment.center,
+              children: controller.usingNowSkillsName.map((skill) =>
+                  SizedBox(
+                    width: itemWidth,
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.shade200,
+                            blurRadius: 10,
+                            offset: const Offset(0, 5),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _buildSkillIcon(skill.name),
+                          const SizedBox(height: 12),
+                          Text(
+                            skill.name,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+              ).toList(),
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget skillsUI(String title){
-    return LayoutBuilder(builder: (context,constraints){
-      if(constraints.maxWidth > 1150){
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(child: Container()),
-            Container(
-              width: Get.width/2,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(title,style: Get.textTheme.bodyLarge!.copyWith(fontSize: 25),)).
-                  paddingOnly(left: Get.width*0.03,bottom: Get.height*0.06),
-                  SizedBox(
-                    height: Get.height*0.5,
-                    child: GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 4, // number of items in each row
-                          mainAxisSpacing: 8.0, // spacing between rows
-                          crossAxisSpacing: 8.0, // spacing between columns
-                          childAspectRatio: 3/2.8
-                      ),
-                      //padding: EdgeInsets.all(8.0), // padding around the grid
-                      itemCount: _homeController.usingNowSkillsName.length, // total number of items
-                      itemBuilder: (context, index) {
-                        return skillWithName(_homeController.usingNowSkillsName[index].image,
-                            _homeController.usingNowSkillsName[index].name);
-                      },
-                    ),
-                  )
-                  /* Wrap(
-                children: _homeController.usingNowSkillsName.map((element) =>
-                skillWithName(element.image, element.name)).toList(),
-              )*/
-                ],
-              ),
-            ),
-            Expanded(child: Container()),
-          ],
-        );
-      }
-      else{
-        return skillsMobileView(title);
-      }
-    });
+  Widget _buildSkillIcon(String skillName) {
+    final String assetPath = _getIconAssetPath(skillName);
+
+    if (assetPath.isNotEmpty) {
+      return Image.asset(
+        assetPath,
+        height: 50,
+        width: 50,
+        errorBuilder: (_, __, ___) => _getFallbackIcon(skillName),
+      );
+    }
+
+    return _getFallbackIcon(skillName);
   }
 
-  Widget skillsMobileView(String title){
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(title,style: Get.textTheme.bodyLarge!.copyWith(fontSize: 25),),
-        Column(
-          children: _homeController.usingNowSkillsName.map((element) =>
-              skillWithName(element.image, element.name)).toList(),
-        )
-      ],
+  String _getIconAssetPath(String skillName) {
+    switch (skillName.toUpperCase()) {
+      case 'DART':
+        return 'assets/icons/dart.png';
+      case 'FLUTTER':
+        return 'assets/icons/flutter.png';
+      case 'JAVA':
+        return 'assets/icons/java.png';
+      case 'FIREBASE':
+        return 'assets/icons/firebase.png';
+      case 'GRAPHQL':
+        return 'assets/icons/graphql.png';
+      case 'GIT':
+        return 'assets/icons/git.png';
+      case 'FIGMA':
+        return 'assets/icons/figma.png';
+      case 'SOCKET.IO':
+        return 'assets/icons/socketio.png';
+      case 'FASTAPI':
+        return 'assets/icons/fastapi.png';
+      case 'MONGODB':
+        return 'assets/icons/mongo.png';
+      default:
+        return '';
+    }
+  }
+
+  Widget _getFallbackIcon(String skillName) {
+    return Container(
+      height: 50,
+      width: 50,
+      decoration: BoxDecoration(
+        color: Colors.blue.shade100,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Icon(
+        _getFallbackIconData(skillName),
+        size: 30,
+        color: Colors.blue.shade700,
+      ),
     );
   }
 
-  Widget skillWithName(String img,String name){
-    return Column(
-      children: [
-        SizedBox(
-            height: 80,width: 70,
-            child: Image.asset(img)).paddingOnly(bottom: 8
-        ),
-        Text(name,style: Get.textTheme.bodySmall!.copyWith(fontSize: 20),),
-      ],
-    )/*.paddingOnly(right: Get.width*0.03,left: Get.width*0.03,bottom: Get.width*0.03)*/;
+  IconData _getFallbackIconData(String skillName) {
+    switch (skillName.toUpperCase()) {
+      case 'DART':
+        return Icons.format_size;
+      case 'FLUTTER':
+        return Icons.mobile_friendly;
+      case 'JAVA':
+        return Icons.coffee;
+      case 'FIREBASE':
+        return Icons.storage;
+      case 'GRAPHQL':
+        return Icons.api;
+      case 'GIT':
+        return Icons.code;
+      case 'FIGMA':
+        return Icons.design_services;
+      case 'SOCKET.IO':
+        return Icons.chat;
+      case 'FASTAPI':
+        return Icons.speed;
+      case 'MONGODB':
+        return Icons.storage;
+      default:
+        return Icons.code;
+    }
   }
 }
-
-

@@ -1,11 +1,9 @@
 import '../screens/login/login_screen.dart';
-import 'package:compress_images_flutter/compress_images_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-
 import '../apis/constants.dart';
 import '../apis/utils.dart';
 
@@ -14,12 +12,12 @@ class CommonController extends GetxController {
   var screenHeight = Get.height;
   final data = MediaQueryData.fromWindow(WidgetsBinding.instance.window);
   RxBool tokenHasExpired = false.obs;
-  late final CompressImagesFlutter compressImagesFlutter;
+  //late final CompressImagesFlutter compressImagesFlutter;
 
 
   @override
   void onInit() {
-    compressImagesFlutter = CompressImagesFlutter();
+    //compressImagesFlutter = CompressImagesFlutter();
     super.onInit();
   }
 

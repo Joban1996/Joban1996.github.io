@@ -1,72 +1,143 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../../widgets/SectioinTitleWidget.dart';
-import '../../widgets/explore_view.dart';
 
-
-///About me part of dashboard screen
 class AboutMe extends StatelessWidget {
-  ///Class constructor
   const AboutMe({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 800;
+
     return Container(
-      color: Get.theme.colorScheme.primary,
+      padding: EdgeInsets.symmetric(
+        horizontal: isMobile ? 20 : 80,
+        vertical: 60,
+      ),
+      color: Colors.white,
       child: Column(
         children: [
-          SizedBox(height: Get.height*0.1,),
-          SectionTitleWidget(title: 'ABOUT ME',isWeb: true,),
-          Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys '
-              'standard dummy text ever since the 1500s, when an unknown printer too'
-              'k a galley of type and scrambled it to make a type specimen book'.tr,
-            style: Get.textTheme.bodySmall!.copyWith(fontSize: 12),textAlign: TextAlign.center,).
-          paddingOnly(top: Get.height*0.06,bottom: Get.height*0.06),
-          Explore(viewWidth: 130,).paddingOnly(top: Get.height*0.05,bottom: Get.height*0.06),
-          SizedBox(
-              height: 70,
-              width: 130,
-              child: Image.asset('assets/icons/separator.png').paddingOnly(bottom: Get.height*0.06)),
+          Text(
+            'About Me',
+            style: Theme.of(context).textTheme.displayMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 20),
+          Container(
+            width: 60,
+            height: 3,
+            color: Colors.blue,
+          ),
+          const SizedBox(height: 40),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(child: developMaintenance('DEVELOPMENT',
-                  'I can design the site based on your needs and suggestions. '
-                      'I can also design the site from scratch and consult you during the job.','assets/icons/develop.png')),
-              SizedBox(width: Get.width*0.02,),
-              Expanded(child: developMaintenance('MAINTENANCE','I can design the site based on your needs and suggestions. '
-                  'I can also design the site from scratch and consult you during the job.','assets/icons/maintenance.png'))
+              if (!isMobile) ...[
+                Expanded(
+                  child: _buildInfoCard(
+                    'Experience',
+                    '5+ Years',
+                    'Flutter Development',
+                    Icons.work_outline,
+                  ),
+                ),
+                const SizedBox(width: 20),
+                Expanded(
+                  child: _buildInfoCard(
+                    'Projects',
+                    '10+',
+                    'Apps Delivered',
+                    Icons.apps_outlined,
+                  ),
+                ),
+                const SizedBox(width: 20),
+                Expanded(
+                  child: _buildInfoCard(
+                    'Clients',
+                    '5+',
+                    'Happy Clients',
+                    Icons.people_outline,
+                  ),
+                ),
+              ] else ...[
+                _buildInfoCard(
+                  'Experience',
+                  '5+ Years',
+                  'Flutter Development',
+                  Icons.work_outline,
+                ),
+                const SizedBox(height: 20),
+                _buildInfoCard(
+                  'Projects',
+                  '10+',
+                  'Apps Delivered',
+                  Icons.apps_outlined,
+                ),
+                const SizedBox(height: 20),
+                _buildInfoCard(
+                  'Clients',
+                  '5+',
+                  'Happy Clients',
+                  Icons.people_outline,
+                ),
+              ],
             ],
-          ).paddingOnly(bottom: Get.height*0.1),
-          SizedBox(
-              height: 90,
-              width: 130,
-              child: Image.asset('assets/icons/separator.png').paddingOnly(bottom: Get.height*0.1,)),
+          ),
+          const SizedBox(height: 40),
+          Text(
+            'I\'m a passionate Flutter developer with 5+ years of experience building high-quality cross-platform apps. '
+                'I specialize in creating beautiful, performant mobile applications with clean architecture. '
+                'I\'ve built full-stack applications using FastAPI and MongoDB, and I\'m experienced with CI/CD pipelines.',
+            style: TextStyle(
+              fontSize: 16,
+              height: 1.5,
+              color: Colors.grey.shade700,
+            ),
+            textAlign: TextAlign.center,
+          ),
         ],
-      ).paddingOnly(right: Get.width*0.2,left: Get.width*0.2),
+      ),
     );
   }
 
-  ///Develop and maintenance
-  Widget developMaintenance(String text,String des,String img){
-    return  Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Stack(
-          alignment: Alignment.centerLeft,
-          children: [
-            SizedBox(
-                height: 55,width: 55,
-                child: Image.asset(img)),
-            Text(text.tr,style: Get.textTheme.bodySmall!.copyWith(fontSize: 18,fontWeight: FontWeight.w600),).paddingOnly(
-              left: Get.width*0.03
-            )
-          ],
-        ),
-        Text(des.tr
-        ,style: Get.textTheme.bodySmall!.copyWith(fontSize: 12),)
-      ],
+  Widget _buildInfoCard(String title, String value, String subtitle, IconData icon) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade50,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.grey.shade200),
+      ),
+      child: Column(
+        children: [
+          Icon(icon, size: 40, color: Colors.blue),
+          const SizedBox(height: 12),
+          Text(
+            value,
+            style: const TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+              color: Colors.blue,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            subtitle,
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.grey.shade600,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
-
-

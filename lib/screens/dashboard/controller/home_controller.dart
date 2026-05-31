@@ -1,24 +1,61 @@
-import 'package:flutter/cupertino.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../controller/common_controller.dart';
 import '../../../models/skills_data.dart';
 
 ///My home Controller
-class HomeController extends CommonController{
+class HomeController extends CommonController {
 
+  // Skills data with proper images
+  final RxList<SkillsData> usingNowSkillsName = <SkillsData>[
+    SkillsData('DART', 'icons/dart.png'),
+    SkillsData('FLUTTER', 'icons/flutter.png'),
+    SkillsData('JAVA', 'icons/java.png'),
+    SkillsData('FIREBASE', 'icons/firebase.png'),
+    SkillsData('GRAPHQL', 'icons/graphql.png'),
+    SkillsData('GIT', 'icons/git.png'),
+    SkillsData('FIGMA', 'icons/figma.png'),
+    SkillsData('SOCKET.IO', 'icons/socketio.png'),
+    SkillsData('FASTAPI', 'icons/fastapi.png'),
+    SkillsData('MONGODB', 'icons/mongodb.png'),
+  ].obs;
 
+  // Menu items for navigation
+  final List<String> menuNames = ['About me', 'Skills', 'Portfolio', 'Contact Us'];
 
-  RxList<SkillsData> usingNowSkillsName = [SkillsData('DART','assets/icons/Dart_Icon.webp'),SkillsData('JAVA','assets/icons/Dart_Icon.webp'),SkillsData('FIREBASE','assets/icons/Dart_Icon.webp'),SkillsData('GRAPHQL', 'assets/icons/Dart_Icon.webp'),SkillsData('GIT', 'assets/icons/Dart_Icon.webp'),SkillsData('FIGMA','assets/icons/Dart_Icon.webp'),SkillsData('SOCKET.IO','assets/icons/Dart_Icon.webp')].obs;
-  RxList<String> usingNowSkillsImg = ['assets/icons/Dart_Icon.webp','assets/icons/Dart_Icon.webp','assets/icons/Dart_Icon.webp',
-    'assets/icons/Dart_Icon.webp','assets/icons/Dart_Icon.webp','assets/icons/Dart_Icon.webp','assets/icons/Dart_Icon.webp'].obs;
-  List<String> menuNames = ['About me','Skills','Portfolio','CONTACT US'];
+  // Scroll controller for the main list
+  final ScrollController myListController = ScrollController();
 
-  ScrollController myListController  = ScrollController();
-
+  // Reactive variable for current section (for highlighting active menu)
+  final RxInt currentSection = 0.obs;
 
   @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
+  void onInit() {
+    super.onInit();
+    // Add scroll listener to update active section
+    myListController.addListener(_onScroll);
+  }
+
+  void _onScroll() {
+    // Logic to update current section based on scroll position
+    // This will be implemented when we have section keys
+  }
+
+  // ✅ Add scroll function
+  void scrollToSection(GlobalKey key) {
+    final context = key.currentContext;
+    if (context != null) {
+      Scrollable.ensureVisible(
+        context,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  @override
+  void onClose() {
+    myListController.dispose();
+    super.onClose();
   }
 }
