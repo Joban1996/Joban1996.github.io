@@ -1,72 +1,106 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../main.dart';
-import '../../widgets/SectioinTitleWidget.dart';
-import '../../widgets/explore_view.dart';
-
 
 ///About me part of dashboard screen
 class AboutMeMobile extends StatelessWidget {
   ///Class constructor
-   AboutMeMobile({Key? key}) : super(key: key);
+  AboutMeMobile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = Get.height;
+    final screenWidth = Get.width;
+
     return Container(
       key: aboutSectionKey,
-      color: Get.theme.colorScheme.primary,
+      color: Colors.white,
+      width: double.infinity,
       child: Column(
         children: [
-          SizedBox(height: Get.height*0.1,),
-          SectionTitleWidget(title: 'ABOUT ME',textSize: 14,isWeb: false,),
-          Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys '
-              'standard dummy text ever since the 1500s, when an unknown printer too'
-              'k a galley of type and scrambled it to make a type specimen book'.tr,
-            style: Get.textTheme.bodySmall!.copyWith(fontSize: 12),textAlign: TextAlign.center,).
-          paddingOnly(top: Get.height*0.06,bottom: Get.height*0.01),
-          Explore(textSize: 12,viewWidth: 100,).paddingOnly(top: Get.height*0.05,bottom: Get.height*0.06),
-          SizedBox(
-              height: 70,
-              width: 130,
-              child: Image.asset('assets/icons/separator.png').paddingOnly(bottom: Get.height*0.06)),
-          developMaintenance('DEVELOPMENT',
-              'I can design the site based on your needs and suggestions. '
-                  'I can also design the site from scratch and consult you during the job.','assets/icons/develop.png'),
-          SizedBox(height: 24,),
-          developMaintenance('MAINTENANCE','I can design the site based on your needs and suggestions. '
-              'I can also design the site from scratch and consult you during the job.','assets/icons/maintenance.png'),
-          SizedBox(height: Get.height*0.06,),
-          SizedBox(
-              height: 90,
-              width: 130,
-              child: Image.asset('assets/icons/separator.png').paddingOnly(bottom: Get.height*0.1,)),
+          SizedBox(height: screenHeight * 0.05),
+
+          Text(
+            'About Me',
+            style: Theme.of(context).textTheme.displayMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 20),
+          Container(
+            width: 60,
+            height: 3,
+            color: Colors.blue,
+          ),
+
+          SizedBox(height: screenHeight * 0.03),
+
+          // Description Text
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+            child: Text(
+              'I\'m a passionate Flutter developer with 5+ years of experience building high-quality cross-platform apps. '
+                  'I specialize in creating beautiful, performant mobile applications with clean architecture. '
+                  'I\'ve built full-stack applications using FastAPI and MongoDB, and I\'m experienced with CI/CD pipelines.',
+              style: Get.textTheme.bodySmall!.copyWith(fontSize: 13, height: 1.5),
+              textAlign: TextAlign.center,
+            ),
+          ),
+
+          SizedBox(height: screenHeight * 0.04),
+
+          // Stats Row
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _statCard('5+', 'Years', 'Experience'),
+              const SizedBox(width: 16),
+              _statCard('10+', 'Projects', 'Delivered'),
+              const SizedBox(width: 16),
+              _statCard('5+', 'Clients', 'Happy'),
+            ],
+          ),
+          SizedBox(height: screenHeight * 0.06),
         ],
-      ).paddingOnly(right: Get.width*0.2,left: Get.width*0.2),
+      ),
     );
   }
 
-  ///Develop and maintenance
-  Widget developMaintenance(String text,String des,String img){
-    return  Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Stack(
-          alignment: Alignment.centerLeft,
-          children: [
-            SizedBox(
-                height: 55,width: 55,
-                child: Image.asset(img)).paddingOnly(bottom: 8),
-            Text(text.tr,style: Get.textTheme.bodySmall!.copyWith(fontSize: 18,fontWeight: FontWeight.w600),).paddingOnly(
-                left: Get.width*0.03
-            )
-          ],
-        ),
-        Text(des.tr
-          ,style: Get.textTheme.bodySmall!.copyWith(fontSize: 12),)
-      ],
+  Widget _statCard(String value, String label, String subtitle) {
+    return Container(
+      width: 85,
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        children: [
+          Text(
+            value,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.blue,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Text(
+            subtitle,
+            style: TextStyle(
+              fontSize: 10,
+              color: Colors.grey.shade600,
+            ),
+          ),
+        ],
+      ),
     );
   }
-
 }
-
-
