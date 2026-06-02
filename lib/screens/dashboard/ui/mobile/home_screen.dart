@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:top_modal_sheet/top_modal_sheet.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../controller/home_controller.dart';
 import '../../utils/skew_container.dart';
 import '../../widgets/menu_items_mobile.dart';
-import '../web/contact.dart';
 import '../web/portfolio.dart';
 import '../web/skills.dart';
 import 'about_me_mobile.dart';
+import 'contact_mobile.dart';
 
 ///Home screen for mobile
 class HomeScreenMobile extends StatelessWidget {
@@ -67,33 +68,33 @@ class HomeScreenMobile extends StatelessWidget {
                   ),
 
                   // ✅ Profile Photo on Mobile
-                  Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      width: 180,
-                      height: 180,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            blurRadius: 20,
-                            offset: const Offset(0, 10),
-                          ),
-                        ],
-                      ),
-                      child: ClipOval(
-                        child: Image.asset(
-                          'assets/images/mypic.jpeg',
-                          fit: BoxFit.cover,
-                          width: 180,
-                          height: 180,
-                          errorBuilder: (_, __, ___) => Container(
-                            color: Colors.grey.shade300,
-                            child: const Icon(
-                              Icons.person,
-                              size: 80,
-                              color: Colors.grey,
+                  Positioned(
+                    top: screenHeight * 0.2,  // Adjust this value (0.08 = higher, 0.12 = lower)
+                    left: 0,
+                    right: 0,
+                    child: Center(
+                      child: Container(
+                        width: 170,
+                        height: 170,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              blurRadius: 20,
+                              offset: const Offset(0, 10),
+                            ),
+                          ],
+                        ),
+                        child: ClipOval(
+                          child: Image.asset(
+                            'assets/images/mypic.jpeg',
+                            fit: BoxFit.cover,
+                            width: 200,
+                            height: 200,
+                            errorBuilder: (_, __, ___) => Container(
+                              color: Colors.grey.shade300,
+                              child: const Icon(Icons.person, size: 50, color: Colors.grey),
                             ),
                           ),
                         ),
@@ -148,9 +149,9 @@ class HomeScreenMobile extends StatelessWidget {
                             Column(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                socialMediaOptions('assets/icons/mail.svg'),
-                                socialMediaOptions('assets/icons/github.svg'),
-                                socialMediaOptions('assets/icons/linkedIn.svg'),
+                                socialMediaOptions('assets/icons/mail.svg', 'mailto:your.email@gmail.com'),
+                                socialMediaOptions('assets/icons/github.svg', 'https://github.com/joban1996'),
+                                socialMediaOptions('assets/icons/linkedIn.svg', 'https://www.linkedin.com/in/jobandeep-singh-302771166/'),
                               ],
                             ),
                           ],
@@ -173,22 +174,28 @@ class HomeScreenMobile extends StatelessWidget {
             AboutMeMobile(),
             Skills(isWeb: false),
             Portfolio(),
-            Contact(),
+            ContactMobile()
           ],
         ),
       ),
     );
   }
 
-  Widget socialMediaOptions(String img) {
-    return Card(
-      elevation: 1,
-      child: Container(
-        height: 38,
-        width: 38,
-        decoration: BoxDecoration(color: Get.theme.colorScheme.onSecondary),
-        child: SvgPicture.asset(img).paddingAll(7),
-      ),
-    ).paddingOnly(bottom: Get.height * 0.03);
+  Widget socialMediaOptions(String img, String url){
+    return GestureDetector(
+      onTap: () {
+        // Use url_launcher to open the link
+        launchUrl(Uri.parse(url));
+      },
+      child: Card(
+        elevation: 1,
+        child: Container(
+          height: 38,
+          width: 38,
+          decoration: BoxDecoration(color: Get.theme.colorScheme.onSecondary),
+          child: SvgPicture.asset(img).paddingAll(7),
+        ),
+      ).paddingOnly(right: Get.width*0.01),
+    );
   }
 }

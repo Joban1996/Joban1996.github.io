@@ -3,11 +3,10 @@ import 'package:get/get.dart';
 import '../../../main.dart';
 import '../controller/home_controller.dart';
 
-
 ///Top menu items class
 class MenuItemsMobile extends StatelessWidget {
   ///Top menu items class constructor
-   MenuItemsMobile({Key? key}) : super(key: key);
+  MenuItemsMobile({Key? key}) : super(key: key);
 
   HomeController _homeController = Get.find();
 
@@ -18,37 +17,58 @@ class MenuItemsMobile extends StatelessWidget {
       decoration: BoxDecoration(color: Colors.transparent),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: _homeController.menuNames.map(_text).toList(),
+        children: _homeController.menuNames.asMap().entries.map((entry) {
+          final index = entry.key;
+          final name = entry.value;
+          return _text(name, index);
+        }).toList(),
       ),
     ).paddingOnly(top: kToolbarHeight);
   }
-  Widget _text(String e){
+
+  Widget _text(String e, int index) {
     return InkWell(
-      onTap: (){
-        Get.back();
-        switch(_homeController.menuNames.indexOf(e)){
+      onTap: () {
+        Get.back(); // Close the menu first
+
+        // Calculate scroll position based on section index
+        // You'll need to get the position of each section
+        switch (index) {
           case 0:
-            Scrollable.ensureVisible(aboutSectionKey.currentContext!);
-         break;
+            _homeController.scrollToSection(aboutSectionKey);
+            break;
           case 1:
-            Scrollable.ensureVisible(skillSectionKey.currentContext!);
-         break;
+            _homeController.scrollToSection(skillSectionKey);
+            break;
           case 2:
-            Scrollable.ensureVisible(portfolioSectionKey.currentContext!);
+            _homeController.scrollToSection(portfolioSectionKey);
             break;
           case 3:
-            Scrollable.ensureVisible(contactSectionKey.currentContext!);
+            _homeController.scrollToSection(contactSectionKey);
             break;
         }
       },
       child: Container(
         alignment: Alignment.center,
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         width: Get.width,
-        decoration: BoxDecoration(color: e == _homeController.menuNames.last ? Colors.white : Colors.transparent),
-        child:
-        e == _homeController.menuNames.last ? Text(e,style: Get.textTheme.bodyMedium?.copyWith(color: Get.theme.primaryColorDark),):
-        Text(e,style: Get.textTheme.bodyMedium?.copyWith(color: Get.theme.colorScheme.onPrimary),),),
+        decoration: BoxDecoration(
+          color: e == _homeController.menuNames.last ? Colors.white : Colors.transparent,
+        ),
+        child: e == _homeController.menuNames.last
+            ? Text(
+          e,
+          style: Get.textTheme.bodyMedium?.copyWith(
+            color: Get.theme.primaryColorDark,
+          ),
+        )
+            : Text(
+          e,
+          style: Get.textTheme.bodyMedium?.copyWith(
+            color: Get.theme.colorScheme.onPrimary,
+          ),
+        ),
+      ),
     );
   }
 }

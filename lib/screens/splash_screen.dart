@@ -1,14 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../apis/constants.dart';
-import '../apis/secure_storage_utils.dart';
 import '../theme/route/route_names.dart';
 
-///This is a first screen that will appears for 3 to 4 seconds
+///Splash screen with minimal design
 class SplashScreen extends StatefulWidget {
-  ///Splash constructor
   const SplashScreen({Key? key}) : super(key: key);
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -16,48 +14,35 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
-  late Animation<double> animation;
-  late CurvedAnimation curve;
-  var selected = false.obs;
-  var authToken;
-
-  doAnimationLogo() {
-    selected.value = true;
-  }
-
+  late Animation<double> _fadeAnimation;
 
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 1), doAnimationLogo);
-    Timer(const Duration(seconds: 4), () async {
-      authToken = await SecureStorageUtils().readSecureData(PREF_TOKEN);
-      if (authToken != null) {
-      Get.offNamed(RouteNames.homeScreen);
-       } else {
-        Get.offNamed(RouteNames.homeScreen);
-      }
-    });
+
+    _setupAnimations();
+    _navigateToHome();
+  }
+
+  void _setupAnimations() {
     _animationController = AnimationController(
-      duration: const Duration(seconds: 1),
+      duration: const Duration(milliseconds: 800),
       vsync: this,
     );
-    curve = CurvedAnimation(
-      parent: _animationController,
-      curve: const Interval(
-        0.5,
-        1.0,
-        curve: Curves.easeInOutBack,
+
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeIn,
       ),
     );
-    animation = Tween<double>(
-      begin: 0,
-      end: 1,
-    ).animate(curve);
-    Future.delayed(
-      const Duration(seconds: 1),
-          () => _animationController.forward(),
-    );
+
+    _animationController.forward();
+  }
+
+  Future<void> _navigateToHome() async {
+    await Future.delayed(const Duration(seconds: 2));
+    Get.offNamed(RouteNames.homeScreen);
   }
 
   @override
@@ -69,24 +54,25 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            color: Theme.of(context).colorScheme.primary,
-            child: SingleChildScrollView(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      height: 700,
-                      child: Stack(
-                        children: [
-                          Center(child: Text('Get started'.tr))
-                        ],
-                      ),
-                    ),
-
-                  ]),
-            )));
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        color: Colors.white, // Basic white color
+        child: Center(
+          child: FadeTransition(
+            opacity: _fadeAnimation,
+            child: Text(
+              'Get Started',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+                color: Colors.grey.shade700,
+                letterSpacing: 1,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -95,7 +95,7 @@ class HomeScreenWeb extends StatelessWidget {
                 )
             ),
 
-            // ✅ REPLACED BLACK STRIP WITH BEAUTIFUL CURVED WAVE
+            //REPLACED BLACK STRIP WITH BEAUTIFUL CURVED WAVE
             Container(
               width: Get.width,
               height: 80,
