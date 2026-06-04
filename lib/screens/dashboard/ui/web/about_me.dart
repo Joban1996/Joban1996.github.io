@@ -45,7 +45,7 @@ class AboutMe extends StatelessWidget {
                 Expanded(
                   child: _buildInfoCard(
                     'Projects',
-                    '10+',
+                    '15+',
                     'Apps Delivered',
                     Icons.apps_outlined,
                   ),

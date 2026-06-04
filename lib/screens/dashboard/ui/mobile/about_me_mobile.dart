@@ -55,9 +55,9 @@ class AboutMeMobile extends StatelessWidget {
             children: [
               _statCard('5+', 'Years', 'Experience'),
               const SizedBox(width: 16),
-              _statCard('10+', 'Projects', 'Delivered'),
+              _statCard('15+', 'Projects', 'Delivered'),
               const SizedBox(width: 16),
-              _statCard('5+', 'Clients', 'Happy'),
+              _statCard('5+', 'Happy', 'Clients'),
             ],
           ),
           SizedBox(height: screenHeight * 0.06),
