@@ -4,7 +4,7 @@ class PortfolioData {
   static const String experience = '5+ Years';
 
   static const String bio = """
-I'm a passionate Flutter developer with 5+ years of experience building cross-platform apps. 
+I'm a passionate Flutter developer with 5+ years of experience building high-quality cross-platform apps. 
 I specialize in creating beautiful, performant mobile applications with clean architecture.
 I've built full-stack applications using FastAPI and MongoDB, and I'm experienced with CI/CD pipelines.
   """;
@@ -27,22 +27,12 @@ I've built full-stack applications using FastAPI and MongoDB, and I'm experience
     {
       'title': 'Humpday',
       'role': 'Flutter Developer',
-      'description': 'A dating app where users can find a perfect match daily as per their requirements. Features include real-time chat with sockets, purchasing dates and events using in-app payment with Stripe, and daily push notifications for matches.',
+      'description': 'A dating app where users can find a perfect match daily as per their requirements. Features include real-time chat with sockets, purchasing dates and events using in-app payment with Stripe, and daily push notifications.',
       'tech': ['Flutter', 'Dart', 'Firebase', 'Socket.IO', 'Stripe', 'Mixpanel'],
       'platforms': ['iOS', 'Android'],
-      'image': 'assets/images/name.jpeg',
-      'github': '',
-      'live': '',
-    },
-    {
-      'title': 'Campus Closet',
-      'role': 'Flutter Developer',
-      'description': 'A student marketplace app designed to help students buy, sell, and exchange items within their campus community safely and conveniently.',
-      'tech': ['Flutter', 'Dart', 'Firebase', 'REST APIs'],
-      'platforms': ['iOS', 'Android'],
-      'image': 'assets/images/campus_closet.jpeg',
-      'github': '',
-      'live': '',
+      'image': 'assets/images/humpday.png',
+      'liveUrl': 'https://play.google.com/store/apps/details?id=com.humpdaydating&pcampaignid=web_share', // ✅ Has live link
+      'githubUrl': '',
     },
     {
       'title': 'Kinder Connect',
@@ -51,8 +41,18 @@ I've built full-stack applications using FastAPI and MongoDB, and I'm experience
       'tech': ['Flutter', 'Dart', 'Firebase', 'Push Notifications'],
       'platforms': ['iOS', 'Android'],
       'image': 'assets/images/kinder_connect.png',
-      'github': '',
-      'live': '',
+      'liveUrl': 'https://play.google.com/store/apps/details?id=com.megamind.kinderconnect&pcampaignid=web_share', // ✅ Has live link (update with actual)
+      'githubUrl': '',
+    },
+    {
+      'title': 'Campus Closet',
+      'role': 'Flutter Developer',
+      'description': 'A student marketplace app designed to help students buy, sell, and exchange items within their campus community safely and conveniently.',
+      'tech': ['Flutter', 'Dart', 'Firebase', 'REST APIs'],
+      'platforms': ['iOS', 'Android'],
+      'image': 'assets/images/campus_closet.png',
+      'liveUrl': 'https://play.google.com/store/apps/details?id=com.campuscloset.app', // ✅ Has live link
+      'githubUrl': '',
     },
     {
       'title': 'Property Listing App',
@@ -60,9 +60,9 @@ I've built full-stack applications using FastAPI and MongoDB, and I'm experience
       'description': 'Full-stack property listing app with image upload, search, filter, deep linking, and CI/CD pipeline. Backend built with FastAPI and MongoDB Atlas.',
       'tech': ['Flutter', 'FastAPI', 'MongoDB', 'GetX', 'GitHub Actions'],
       'platforms': ['Web', 'iOS', 'Android'],
-      'image': 'assets/images/prop_dashboard.png',
-      'github': 'https://github.com/jobandeep/property_app',
-      'live': 'https://property-app.netlify.app',
+      'image': 'assets/images/property_app.png',
+      'liveUrl': '', // ❌ No live link (empty)
+      'githubUrl': 'https://github.com/jobandeep/property_app',
     },
   ];
 

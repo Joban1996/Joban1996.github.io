@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../controller/portfolio_controller.dart';
 
 class Portfolio extends StatelessWidget {
@@ -45,7 +46,6 @@ class Portfolio extends StatelessWidget {
                 final project = controller.projects[index];
                 return _ProjectCard(
                   project: project,
-                  onImageTap: () => _showFullImage(context, project['image']),
                 );
               },
             ),
@@ -128,12 +128,17 @@ class Portfolio extends StatelessWidget {
 
 class _ProjectCard extends StatelessWidget {
   final Map<String, dynamic> project;
-  final VoidCallback onImageTap;
 
-  const _ProjectCard({Key? key, required this.project, required this.onImageTap}) : super(key: key);
+  const _ProjectCard({
+    Key? key,
+    required this.project,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final hasLiveUrl = project['liveUrl'] != null && project['liveUrl'].toString().isNotEmpty;
+    final hasGithubUrl = project['githubUrl'] != null && project['githubUrl'].toString().isNotEmpty;
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -149,74 +154,50 @@ class _ProjectCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Image Section - Tap to see full image
-          GestureDetector(
-            onTap: onImageTap,
-            child: ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-              child: Container(
-                height: 160,
-                width: double.infinity,
-                color: Colors.blue.shade50,
-                child: _buildImage(project['image']),
-              ),
-            ),
-          ),
-
-          // Content Section
+          // Content Section (takes available space)
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Title
                   Text(
                     project['title'],
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 4),
+
+                  // Role
                   Text(
                     project['role'],
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.blue.shade700,
-                    ),
+                    style: TextStyle(fontSize: 13, color: Colors.blue.shade700),
                   ),
-                  const SizedBox(height: 8),
-                  Expanded(
-                    child: Text(
-                      project['description'],
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey.shade600,
-                        height: 1.3,
-                      ),
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                  const SizedBox(height: 12),
+
+                  // Description
+                  Text(
+                    project['description'],
+                    style: TextStyle(fontSize: 14, color: Colors.grey.shade700, height: 1.5),
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 16),
+
+                  // Tech Stack
                   Wrap(
-                    spacing: 6,
-                    runSpacing: 6,
-                    children: (project['tech'] as List).take(4).map((tech) =>
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: (project['tech'] as List).map((tech) =>
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                           decoration: BoxDecoration(
-                            color: Colors.grey.shade100,
-                            borderRadius: BorderRadius.circular(4),
+                            color: Colors.blue.shade50,
+                            borderRadius: BorderRadius.circular(20),
                           ),
                           child: Text(
                             tech,
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.grey.shade700,
-                            ),
+                            style: TextStyle(fontSize: 12, color: Colors.blue.shade700),
                           ),
                         ),
                     ).toList(),
@@ -225,23 +206,46 @@ class _ProjectCard extends StatelessWidget {
               ),
             ),
           ),
+
+          // ✅ Button at Bottom
+          if (hasLiveUrl || hasGithubUrl)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (hasLiveUrl) {
+                      _launchUrl(project['liveUrl']);
+                    } else if (hasGithubUrl) {
+                      _launchUrl(project['githubUrl']);
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: hasLiveUrl ? Colors.blue : Colors.grey.shade700,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: Text(
+                    hasLiveUrl ? 'View Application' : 'View Code',
+                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ),
+            ),
         ],
       ),
     );
   }
 
-  Widget _buildImage(String? imagePath) {
-    if (imagePath == null || imagePath.isEmpty) {
-      return const Center(
-        child: Icon(Icons.code, size: 50, color: Colors.blue),
-      );
+  Future<void> _launchUrl(String url) async {
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    } else {
+      Get.snackbar('Error', 'Could not open link');
     }
-
-    return Image.asset(
-      imagePath,
-      width: double.infinity,
-      height: 160,
-      fit: BoxFit.contain,
-    );
   }
 }
