@@ -8,6 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../utils/skew_container_top.dart';
 import 'about_me.dart';
 import 'contact.dart';
+import 'experience_section.dart';
 import 'portfolio.dart';
 import 'skills.dart';
 
@@ -72,15 +73,19 @@ class HomeScreenWeb extends StatelessWidget {
                         children: [
                           Align(
                             alignment: Alignment.topCenter,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                menuOptions('About me', aboutSectionKey),
-                                menuOptions('Skills', skillSectionKey),
-                                menuOptions('Portfolio',portfolioSectionKey),
-                                menuOptions('CONTACT ME',contactSectionKey),
-                              ],
-                            ).paddingAll(Get.height*0.05),
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  menuOptions('About me', aboutSectionKey),
+                                  menuOptions('Skills', skillSectionKey),
+                                  menuOptions('Portfolio', portfolioSectionKey),
+                                  menuOptions('Experience', experienceSectionKey),
+                                  menuOptions('Contact', contactSectionKey),
+                                ],
+                              ),
+                            ).paddingAll(Get.height * 0.05),
                           ),
                           Expanded(
                             child: Center(
@@ -109,6 +114,7 @@ class HomeScreenWeb extends StatelessWidget {
             Container(key: aboutSectionKey, child: AboutMe()),
             Container(key: skillSectionKey, child: Skills(isWeb: true)),
             Container(key: portfolioSectionKey, child: const Portfolio()),
+            Container(key: experienceSectionKey, child: const ExperienceSection()),
             Container(key: contactSectionKey, child: const Contact()),
           ],
         ),
