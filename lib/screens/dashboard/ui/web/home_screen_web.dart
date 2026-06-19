@@ -52,7 +52,7 @@ class HomeScreenWeb extends StatelessWidget {
                                 Text('Hi, I am'.tr,style: Get.textTheme.bodyLarge!.copyWith(fontSize: 20),),
                                 SizedBox(height: Get.height*0.04,),
                                 Text('Jobandeep Singh'.tr,style: Get.textTheme.bodyLarge!.copyWith(fontSize: 40),),
-                                Text('Front-end Developer / Flutter'.tr,style: Get.textTheme.bodyLarge!.
+                                Text('Front-end Developer / Mobile Applications'.tr,style: Get.textTheme.bodyLarge!.
                                 copyWith(fontSize: 13,color: Get.theme.colorScheme.secondary),),
                                 SizedBox(height: Get.height/8,),
                                 Wrap(

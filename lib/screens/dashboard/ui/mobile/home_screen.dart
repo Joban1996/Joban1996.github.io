@@ -137,7 +137,7 @@ class HomeScreenMobile extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    'Front-end Developer / Flutter'.tr,
+                                    'Front-end Developer / Mobile Applications'.tr,
                                     style: Get.textTheme.bodyLarge!.copyWith(
                                       fontSize: 12,
                                       color: Get.theme.colorScheme.onPrimary,
